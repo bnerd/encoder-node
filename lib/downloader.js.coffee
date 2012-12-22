@@ -11,6 +11,8 @@ class Downloader
     console.log "b'nerd Download #{@version}"
     
   download: (job, callback) ->
+    job.step("downloading")
+    
     input_file = job.data.input_file 
     
     info = url.parse(input_file)
@@ -31,7 +33,7 @@ class Downloader
         console.log "chunk"
         file.write chunk
         completed += chunk.length
-        job.progress(completed, total)
+        job.progress(completed, total, "downloading")
       res.on "end", ->
         file.end
         console.log "file downloaded"
