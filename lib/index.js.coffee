@@ -6,26 +6,14 @@ downloader = require './downloader.js.coffee'
 kue = require('/home/besu/code/kue')
 jobs = kue.createQueue()
 
-downloader = new downloader.Downloader()
-encoder = new encoder.Encoder()
+#downloader = new downloader.Downloader()
 #uploader = new uploader.Uploader()
 
-jobs.process 'download', "2", (job, done) ->
+jobs.process 'video', "2", (job, done) ->
   # download
-  downloader.download job, (resp) ->
-    console.log resp
-    
-jobs.process 'encode', "2", (job, done) ->
-  # download
+  #  downloader.download job, (resp) ->
+  #    console.log resp
+  encoder = new encoder.Encoder()
   encoder.encode job, (resp) ->
     console.log resp
-    
-jobs.process 'upload', "2", (job, done) ->
-  # notify
-  #uploader.upload job, (resp) ->
-  #  console.log resp        
-  
-jobs.process 'notify', "2", (job, done) ->
-  # notify
-  #uploader.upload job, (resp) ->
-  #  console.log resp 
+    done()
